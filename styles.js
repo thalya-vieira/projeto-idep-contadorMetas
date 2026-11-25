@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import { colors } from "./colors";
+
 
 export const styles = StyleSheet.create({
   container: {
@@ -14,7 +16,7 @@ export const styles = StyleSheet.create({
   cartao: {
     width: "100%",
     maxWidth: 430,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.light.surface,
     borderRadius: 22,
     padding: 22,
     elevation: 4,
@@ -25,55 +27,55 @@ export const styles = StyleSheet.create({
   titulo: {
     fontSize: 23,
     fontWeight: "700",
-    color: "#1E3A8A",
+    color: colors.primary,
     textAlign: "center",
   },
   subtitulo: {
     fontSize: 15,
-    color: "#64748B",
+    color: colors.light.subtitle,
     textAlign: "center",
     marginTop: 6,
     marginBottom: 18,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#CBD5E1",
+    borderColor: colors.light.border,
     borderRadius: 12,
     padding: 13,
-    color: "#0F172A",
+    color: colors.light.text,
   },
   boasVindas: {
     fontSize: 17,
     fontWeight: "600",
-    color: "#0F172A",
+    color: colors.light.text,
     textAlign: "center",
     marginVertical: 15,
   },
   visor: {
-    backgroundColor: "#EEF2FF",
+    backgroundColor: colors.light.visor,
     borderRadius: 18,
     padding: 20,
     alignItems: "center",
     marginBottom: 12,
   },
   rotulo: {
-    color: "#475569",
+    color: colors.light.background.subtitle,
     fontSize: 12,
     fontWeight: "700",
   },
   numero: {
-    color: "#312E81",
+    color: colors.light.number,
     fontSize: 52,
     fontWeight: "800",
   },
   mensagem: {
-    color: "#15803D",
+    color: colors.success,
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 14,
   },
   dica: {
-    color: "#64748B",
+    color: colors.light.subtitle,
     textAlign: "center",
     marginBottom: 14,
   },
@@ -90,19 +92,19 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   botaoMenos: {
-    backgroundColor: "#2563EB",
+    backgroundColor: colors.primary,
     marginRight: 6,
   },
   botaoMais: {
-    backgroundColor: "#16A34A",
+    backgroundColor: colors.success,
     marginLeft: 6,
   },
   botaoZerar: {
-    backgroundColor: "#64748B",
+    backgroundColor: colors.secondary,
     marginRight: 6,
   },
   botaoTema: {
-    backgroundColor: "#7C3AED",
+    backgroundColor: colors.purple,
     marginLeft: 6,
   },
   botaoDesabilitado: {
@@ -127,14 +129,14 @@ export const styles = StyleSheet.create({
 
   barraFundo: {
     height: 10,
-    backgroundColor: "#E2E8F0",
+    backgroundColor: colors.light.progressTrack,
     borderRadius: 20,
     overflow: "hidden",
   },
 
   barraProgresso: {
     height: 10,
-    backgroundColor: "#22A447",
+    backgroundColor: colors.progress,
     borderRadius: 20,
   },
 
@@ -142,8 +144,11 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 8,
     marginBottom: 15,
-    color: "#64748B",
+    color: colors.light.subtitle,
   },
+
+
+  
 });
 
 export default styles;
