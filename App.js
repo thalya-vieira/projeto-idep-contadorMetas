@@ -1,232 +1,52 @@
-import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
+//App.js Raiz do Projeto
+import { NavigationContainer } from "@react-navigation/native";
 
-import {
-  Text,
-  View,
-  Pressable,
-  TextInput,
-  ScrollView,
-  useWindowDimensions,
-} from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-// Importando os estilos
-import { styles } from "./styles";
+// Importando as telas
+import HomeScreen from "./screens/HomeScreen";
+import ResumoScreen from "./screens/ResumoScreen";
 
-// Importando as cores
-import { colors } from "./colors";
+// Criando o navegador
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [nome, setNome] = useState("");
-  const [contador, setContador] = useState(0);
-  const [temaSelecionado, setTemaSelecionado] = useState("light");
-
-  // META DIÁRIA DO APLICATIVO
-  const meta = 10;
-
-  // Cálculo do progresso
-  const progresso = Math.min((contador / meta) * 100, 100);
-
-  // Responsividade da tela
-  const { width } = useWindowDimensions();
-  const telaPequena = width < 380;
-
-  // Seleção do tema
-  const tema = colors[temaSelecionado];
-
-  const alternarTema = () => {
-    if (temaSelecionado === "light") {
-      setTemaSelecionado("dark");
-    } else if (temaSelecionado === "dark") {
-      setTemaSelecionado("atividade");
-    } else {
-      setTemaSelecionado("light");
-    }
-  };
-
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: tema.background },
-      ]}
-    >
-      <StatusBar
-        style={temaSelecionado === "light" ? "dark" : "light"}
-      />
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Inicio"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#2563EB",
+          },
 
-      <ScrollView contentContainerStyle={styles.conteudo}>
-        <View
-          style={[
-            styles.cartao,
-            {
-              padding: telaPequena ? 15 : 22,
-              backgroundColor: tema.surface,
-            },
-          ]}
-        >
-          {/* TÍTULO */}
-          <Text
-            style={[
-              styles.titulo,
-              { fontSize: telaPequena ? 20 : 24 },
-            ]}
-          >
-            Meu Contador de Metas
-          </Text>
+          headerTintColor: "#FFFFFF",
 
-          <Text
-            style={[
-              styles.subtitulo,
-              { color: tema.subtitle },
-            ]}
-          >
-            Programação Mobile I
-          </Text>
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        {/* PRIMEIRA TELA */}
 
-          {/* CAMPO DE NOME */}
-          <TextInput
-            style={[
-              styles.input,
-              {
-                backgroundColor: tema.inputBackground,
-                borderColor: tema.border,
-                color: tema.text,
-              },
-            ]}
-            placeholder="Digite seu nome"
-            placeholderTextColor={tema.subtitle}
-            value={nome}
-            onChangeText={setNome}
-          />
+        <Stack.Screen
+          name="Inicio"
+          component={HomeScreen}
+          options={{
+            title: "Meu Contador de Metas",
+          }}
+        />
 
-          {/* BOAS-VINDAS */}
-          <Text
-            style={[
-              styles.boasVindas,
-              { color: tema.text },
-            ]}
-          >
-            {nome.trim()
-              ? `Olá, ${nome}!`
-              : "Olá, estudante!"}
-          </Text>
+        {/* SEGUNDA TELA */}
 
-          {/* PROGRESSO DA META */}
-          <View style={styles.linhaMeta}>
-            <Text style={{ color: tema.text }}>
-              Progresso da meta
-            </Text>
-
-            <Text style={{ color: tema.text }}>
-              {contador} / {meta}
-            </Text>
-          </View>
-
-          {/* BARRA DE PROGRESSO */}
-          <View
-            style={[
-              styles.barraFundo,
-              { backgroundColor: tema.progressTrack },
-            ]}
-          >
-            <View
-              style={[
-                styles.barraProgresso,
-                { width: `${progresso}%` },
-              ]}
-            />
-          </View>
-
-          <Text
-            style={[
-              styles.textoProgresso,
-              { color: tema.subtitle },
-            ]}
-          >
-            {Math.round(progresso)}% concluído
-          </Text>
-
-          {/* MENSAGEM DE META */}
-          {contador >= meta ? (
-            <Text style={styles.mensagem}>
-              Parabéns! Você chegou a 10 ou mais!
-            </Text>
-          ) : (
-            <Text
-              style={[
-                styles.dica,
-                { color: tema.subtitle },
-              ]}
-            >
-              Continue testando os botões.
-            </Text>
-          )}
-
-          {/* BOTÕES DE CONTROLE */}
-          <View style={styles.linhaBotoes}>
-            <Pressable
-              disabled={contador === 0}
-              style={[
-                styles.botao,
-                styles.botaoMenos,
-                contador === 0 && styles.botaoDesabilitado,
-              ]}
-              onPress={() =>
-                setContador((valor) =>
-                  Math.max(0, valor - 1)
-                )
-              }
-            >
-              <Text style={styles.textoBotao}>
-                − Diminuir
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={[styles.botao, styles.botaoMais]}
-              onPress={() =>
-                setContador((valor) => valor + 1)
-              }
-            >
-              <Text style={styles.textoBotao}>
-                + Adicionar
-              </Text>
-            </Pressable>
-          </View>
-
-          {/* BOTÕES EXTRAS */}
-          <View style={styles.linhaBotoes}>
-            <Pressable
-              style={[styles.botao, styles.botaoZerar]}
-              onPress={() => setContador(0)}
-            >
-              <Text style={styles.textoBotao}>
-                Zerar
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={[styles.botao, styles.botaoTema]}
-              onPress={alternarTema}
-            >
-              <Text style={styles.textoBotao}>
-                Tema: {temaSelecionado}
-              </Text>
-            </Pressable>
-          </View>
-        </View>
-
-        {/* RODAPÉ */}
-        <Text
-          style={[
-            styles.rodape,
-            { color: tema.subtitle },
-          ]}
-        >
-          Desenvolvido na aula de Mobile I
-        </Text>
-      </ScrollView>
-    </View>
+        <Stack.Screen
+          name="Resumo"
+          component={ResumoScreen}
+          options={{
+            title: "Resumo da Meta",
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
